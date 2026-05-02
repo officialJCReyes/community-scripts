@@ -24,7 +24,6 @@ DownloadUrl="https://dl.google.com/drive-file-stream/GoogleDrive.dmg"
 ForceReinstall="False"   # Set to "True" to reinstall even if already present
 AppName="Google Drive.app"
 InstallPath="/Applications"
-# ============================================================
 
 # ── Logging ──────────────────────────────────────────────────
 log()  { echo "[INFO]  $*"; }
@@ -48,7 +47,7 @@ if [[ -d "$InstallPath/$AppName" ]]; then
 fi
 
 # ── Download ──────────────────────────────────────────────────
-TempFolder=$(mktemp -d /private/tmp/GoogleDrive-XXXXXX) || abort "Failed to create temp folder"
+TempFolder=$(mktemp -d) || abort "Failed to create temp folder"
 log "Temp folder created: $TempFolder"
 
 log "Downloading Google Drive DMG..."

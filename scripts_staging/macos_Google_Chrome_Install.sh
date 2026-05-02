@@ -18,7 +18,6 @@
 
 DownloadUrl="https://dl.google.com/chrome/mac/universal/stable/GGRO/googlechrome.dmg"
 ForceReinstall="False"   # Set to "True" to reinstall even if already present
-# ============================================================
 
 # ── Logging ──────────────────────────────────────────────────
 log()  { echo "[INFO]  $*"; }
@@ -32,7 +31,7 @@ abort() {
 }
 
 # ── Download ──────────────────────────────────────────────────
-TempFolder=$(mktemp -d /private/tmp/GoogleChrome-XXXXXX) || abort "Failed to create temp folder"
+TempFolder=$(mktemp -d) || abort "Failed to create temp folder"
 log "Temp folder created: $TempFolder"
 
 log "Downloading Google Chrome DMG..."

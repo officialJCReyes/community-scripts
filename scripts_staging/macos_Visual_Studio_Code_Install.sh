@@ -50,18 +50,18 @@ abort() {
 
 # ── Resolve Final Download URL ────────────────────────────────
 log "Resolving download URL: $DownloadUrl"
-if [[ "$DownloadUrl" =~ ^https?.*\.dmg$ ]]; then
+if [[ "$DownloadUrl" == *".dmg"* ]]; then
     log "Direct download link detected"
     ResolvedUrl="$DownloadUrl"
 else
     log "Following redirects to find final DMG URL..."
     ResolvedUrl=$(curl -sIL "$DownloadUrl" | grep -i "^location:" | tail -1 | awk '{print $2}' | tr -d '[:space:]')
-    [[ "$ResolvedUrl" =~ ^https?.*\.dmg$ ]] || abort "Could not resolve a .dmg URL from headers. Got: $ResolvedUrl"
+    [[ "$ResolvedUrl" == *".dmg"* ]] || abort "Could not resolve a .dmg URL from headers. Got: $ResolvedUrl"
     log "Resolved URL: $ResolvedUrl"
 fi
 
 # ── Download ──────────────────────────────────────────────────
-TempFolder=$(mktemp -d /private/tmp/VSCode-XXXXXX) || abort "Failed to create temp folder"
+TempFolder=$(mktemp -d) || abort "Failed to create temp folder"
 log "Temp folder created: $TempFolder"
 
 log "Downloading Visual Studio Code DMG..."
